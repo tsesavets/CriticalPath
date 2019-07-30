@@ -129,13 +129,11 @@ module.exports = class ConnectorsPageObject extends PageObject {
 	}
 
 	async FailedLogin() {
-		await this.page.waitForSelector(
-			'#page-wrapper > div > div:nth-child(2) > div > div > div > div > div > div > div > div.col-md-8.provider__form > div > div > button'
-		);
+		await this.page.waitFor({ waitUntil: 'networkidle0' });
 
-		const tryAgain = await this.page.$eval('.text-center', (el) => el.innerText);
+		const feiledText = await this.page.$eval('.text-center', (el) => el.innerText);
 
-		return tryAgain;
+		return feiledText;
 	}
 
 	async MakeScreenshot(page) {

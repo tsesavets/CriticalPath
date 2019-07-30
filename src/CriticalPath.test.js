@@ -179,10 +179,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.AMS360EnterUsernameInc();
 			await Connectors.AMS360EnterPasswordInc();
 			await Connectors.ConnectorModalConnect();
-			const tryAgain = await Connectors.FailedLogin();
+			const feiledText = await Connectors.FailedLogin();
 			await Connectors.MakeScreenshot('AMS360');
 			await Connectors.CloseModal();
-			expect(tryAgain.replace(/\r|\n/g, '')).toBe(
+			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				'Oh snap!Sorry, it looks like the credentials you provided are not valid...Try Again'
 			);
 		},
@@ -199,10 +199,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.AMS360SSOEnterUsernameInc();
 			await Connectors.AMS360SSOEnterPasswordInc();
 			await Connectors.ConnectorModalConnect();
-			const tryAgain = await Connectors.FailedLogin();
+			const feiledText = await Connectors.FailedLogin();
 			await Connectors.MakeScreenshot('AMS360SSO');
 			await Connectors.CloseModal();
-			expect(tryAgain.replace(/\r|\n/g, '')).toBe(
+			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				'Oh snap!Sorry, it looks like the credentials you provided are not valid...Try Again'
 			);
 		},
@@ -219,10 +219,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.EzlynxEnterUsernameInc();
 			await Connectors.EzlynxEnterPasswordInc();
 			await Connectors.ConnectorModalConnect();
-			const tryAgain = await Connectors.FailedLogin();
+			const feiledText = await Connectors.FailedLogin();
 			await Connectors.MakeScreenshot('Ezlynx');
 			await Connectors.CloseModal();
-			expect(tryAgain.replace(/\r|\n/g, '')).toBe(
+			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				"Oh snap!Sorry, it looks like the credentials you provided are not valid or you have Two-Step Verification enabled and we can't connect the data.If you have Two-Step Verification enabled it's an easy fix, please log in to your EZLynx account, disable the Two-Step Verification and click Retry on this page.Try Again"
 			);
 		},
@@ -239,10 +239,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.EzlynxMSEnterUsernameInc();
 			await Connectors.EzlynxMSEnterPasswordInc();
 			await Connectors.ConnectorModalConnect();
-			const tryAgain = await Connectors.FailedLogin();
+			const feiledText = await Connectors.FailedLogin();
 			await Connectors.MakeScreenshot('EzlynxMS');
 			await Connectors.CloseModal();
-			expect(tryAgain.replace(/\r|\n/g, '')).toBe(
+			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				'Oh snap!Sorry, it looks like the credentials you provided are not valid...Try Again'
 			);
 		},
@@ -259,10 +259,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.QQCatalystEnterUsernameInc();
 			await Connectors.QQCatalystEnterPasswordInc();
 			await Connectors.ConnectorModalConnect();
-			const tryAgain = await Connectors.FailedLogin();
+			const feiledText = await Connectors.FailedLogin();
 			await Connectors.MakeScreenshot('QQ-Calalist');
 			await Connectors.CloseModal();
-			expect(tryAgain.replace(/\r|\n/g, '')).toBe(
+			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				'Oh snap!Sorry, it looks like the credentials you provided are not valid...Try Again'
 			);
 		},
@@ -279,10 +279,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.QQCatalystAPIEnterUsernameInc();
 			await Connectors.QQCatalystAPIEnterPasswordInc();
 			await Connectors.ConnectorModalConnect();
-			const tryAgain = await Connectors.FailedLogin();
+			const feiledText = await Connectors.FailedLogin();
 			await Connectors.MakeScreenshot('QQ-Calalist-API');
 			await Connectors.CloseModal();
-			expect(tryAgain.replace(/\r|\n/g, '')).toBe(
+			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				'Oh snap!Sorry, it looks like the credentials you provided are not valid...Try Again'
 			);
 		},
