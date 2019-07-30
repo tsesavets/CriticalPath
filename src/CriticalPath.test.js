@@ -25,8 +25,8 @@ beforeAll(async () => {
 			'-start-maximized',
 			'--detectOpenHandles'
 		],
-		devtools: true,
-		slowMo: 20
+		devtools: true
+		//slowMo: 20
 	});
 
 	page = await browser.newPage();
