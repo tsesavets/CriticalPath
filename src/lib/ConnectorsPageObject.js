@@ -12,7 +12,7 @@ module.exports = class ConnectorsPageObject extends PageObject {
 	}
 
 	async AMS360Open() {
-		await this.page.click('div:nth-child(1) '); //> div > div:nth-child(2) > div.provider-box__title
+		await this.page.click('.col-md-4:nth-child(1)'); //> div > div:nth-child(2) > div.provider-box__title
 
 		await this.page.waitForSelector('button');
 	}
@@ -20,7 +20,7 @@ module.exports = class ConnectorsPageObject extends PageObject {
 	async AMS360SSOopen() {
 		await this.page.waitForSelector('.provider-box__title');
 
-		await this.page.click('div:nth-child(2)');
+		await this.page.click('.col-md-4:nth-child(2)');
 
 		await this.page.waitForSelector('button');
 	}
@@ -28,7 +28,7 @@ module.exports = class ConnectorsPageObject extends PageObject {
 	async EzlynxOpen() {
 		await this.page.waitForSelector('.provider-box__title');
 
-		await this.page.click('div:nth-child(3)');
+		await this.page.click('.col-md-4:nth-child(3)');
 
 		await this.page.waitForSelector('button');
 	}
@@ -36,23 +36,23 @@ module.exports = class ConnectorsPageObject extends PageObject {
 	async EzlynxMSOpen() {
 		await this.page.waitForSelector('.provider-box__title');
 
-		await this.page.click('div:nth-child(4)');
+		await this.page.click('.col-md-4:nth-child(4)');
 
 		await this.page.waitForSelector('button');
 	}
 
 	async QQCatalystOpen() {
-		await this.page.waitForSelector('.provider-box__title');
+		await this.page.waitForSelector('div:nth-child(5)');
 
-		await this.page.click('div:nth-child(5)');
+		await this.page.click('.col-md-4:nth-child(5)');
 
-		await this.page.waitForSelector('button');
+		await this.page.waitForSelector('.row > .col-md-10 > .col-md-8 > div > .vr-buffer-40');
 	}
 
 	async QQCatalystAPIOpen() {
 		await this.page.waitForSelector('.provider-box__title');
 
-		await this.page.click('div:nth-child(6)');
+		await this.page.click('.col-md-4:nth-child(6)');
 
 		await this.page.waitForSelector('button');
 	}
@@ -129,7 +129,7 @@ module.exports = class ConnectorsPageObject extends PageObject {
 	}
 
 	async FailedLogin() {
-		await this.page.waitFor({ waitUntil: 'networkidle0' });
+		await this.page.waitForSelector('div.col-md-8.provider__form button');
 
 		const feiledText = await this.page.$eval('.text-center', (el) => el.innerText);
 
@@ -143,8 +143,6 @@ module.exports = class ConnectorsPageObject extends PageObject {
 	}
 
 	async CloseModal() {
-		await this.page.click(
-			'#page-wrapper > div > div:nth-child(2) > div > div > div > div > div > div > div > div.modal-dialog__cross'
-		);
+		await this.page.click('.modal-dialog__cross');
 	}
 };

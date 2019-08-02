@@ -21,9 +21,9 @@ module.exports = class InvitationsBetaPageObject extends PageObject {
 	}
 
 	async totalInvitationsCheck() {
-		await this.page.waitForSelector('.icon-card__content');
+		await this.page.waitForSelector('.invitations__funnel.m-b-30');
 
-		const numTotal = await this.page.$eval('icon-card__content', (el) => el.innerText);
+		const numTotal = await this.page.$eval('.invitations__funnel.m-b-30 > div:nth-child(1)', (el) => el.innerText);
 
 		await page.screenshot({ path: './screenshots/screenshot-invitationsBeta.png' });
 		return numTotal;

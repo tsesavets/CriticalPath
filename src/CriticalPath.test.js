@@ -153,20 +153,19 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		15000
 	);
 
-	//The same for the Invitations Beta
-	/*
+	//The same for the Invitations Beta - in developing
+
 	test(
 		'Navigating to the Invitations page and seen the Invitations Beta metrics ',
 		async () => {
 			const InvitatiosBeta = new InvitationsBetaPageObject(page);
 			await InvitatiosBeta.clickTab();
-			const invitationsList = await InvitatiosBeta.totalContactsNumber();
+			const invitationsBetaList = await InvitatiosBeta.totalContactsNumber();
 			const numTotal = await InvitatiosBeta.totalInvitationsCheck();
-			expect(ContactTotal).toBe(NumTotal);
+			expect(invitationsBetaList).toBe(numTotal);
 		},
 		15000
 	);
-*/
 
 	/*test(
 		'Navigating to the Connectors page and incorrect login to the AMS 360 ',
@@ -207,7 +206,7 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			);
 		},
 		30000
-	);*/
+	); */
 
 	test(
 		'login to the Ezlynx ',
@@ -269,7 +268,7 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		30000
 	);
 
-	test(
+	/*	test(
 		'login to the QQ Catalyst API ',
 		async () => {
 			const Connectors = new ConnectorsPageObject(page);
@@ -287,7 +286,7 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			);
 		},
 		30000
-	);
+	);*/
 
 	test(
 		'Agent is able to log out',
