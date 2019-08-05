@@ -21,7 +21,7 @@ module.exports = class InvitationsPageObject extends PageObject {
 	}
 
 	async totalInvitationsCheck() {
-		await this.page.waitForSelector('.dashboard__contacts');
+		await this.page.waitForSelector('.invitations__funnel.m-b-30');
 
 		const numTotal = await this.page.$eval('.icon-card__content', (el) => el.innerText);
 

@@ -11,10 +11,13 @@ module.exports = class OpportunitiesPageObject extends PageObject {
 		await this.page.click('a[href*="opportunities"]');
 	}
 
-	async totalOpportunitiesNumber() {
-		const res = await axios.get('https://api-staging.agentero.com/api/frontend/v1/opportunities', { //https://autopush.agentero.dev/opportunities.OpportunityFrontendService/GetOpportunityDetails
-			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
-		});
+	totalOpportunitiesNumber() {
+		const res = axios.get(
+			'https://autopush.agentero.dev/opportunities.OpportunityFrontendService/GetOpportunityDetails',
+			{
+				headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
+			}
+		);
 
 		const opportunitiesList = res.data.meta.totalCount;
 		return opportunitiesList;

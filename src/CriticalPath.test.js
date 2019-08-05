@@ -105,7 +105,7 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		15000
 	);
 
-	/*	test(
+	/*test( //API url has been changed - page is in developing 
 		'Navigating to the Opportunities page and seen the Opportunities list ',
 		async () => {
 			const Opportunities = new OpportunitiesPageObject(page);
@@ -114,9 +114,9 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			const numOpportunities = await Opportunities.totalProspectsCheck();
 			expect(`OPPORTUNITIES (${opportunitiesList})`).toBe(numOpportunities);
 		},
-		15000
-	); //API url has been changed
-*/
+		5000
+	); */
+
 	test(
 		'Navigating to the Quotes page and seen the Quotes list ',
 		async () => {
@@ -156,7 +156,7 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 	//The same for the Invitations Beta - in developing
 
 	test(
-		'Navigating to the Invitations page and seen the Invitations Beta metrics ',
+		'Navigating to the Invitations Beta page and seen the Invitations Beta metrics ',
 		async () => {
 			const InvitatiosBeta = new InvitationsBetaPageObject(page);
 			await InvitatiosBeta.clickTab();
@@ -164,9 +164,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			const numTotal = await InvitatiosBeta.totalInvitationsCheck();
 			expect(invitationsBetaList).toBe(numTotal);
 		},
-		15000
+		5000
 	);
 
+	// AMS360 connectors have issues
 	/*test(
 		'Navigating to the Connectors page and incorrect login to the AMS 360 ',
 		async () => {
@@ -268,6 +269,7 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		30000
 	);
 
+	//Button is disappeared
 	/*	test(
 		'login to the QQ Catalyst API ',
 		async () => {

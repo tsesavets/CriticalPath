@@ -9,6 +9,7 @@ module.exports = class InvitationsBetaPageObject extends PageObject {
 
 	async clickTab() {
 		await this.page.click('a[href*="invitations/beta"]');
+		this.page.waitForNavigation();
 	}
 
 	async totalContactsNumber() {
@@ -21,10 +22,14 @@ module.exports = class InvitationsBetaPageObject extends PageObject {
 	}
 
 	async totalInvitationsCheck() {
-		await this.page.waitForSelector('.invitations__funnel.m-b-30');
-
-		const numTotal = await this.page.$eval('.invitations__funnel.m-b-30 > div:nth-child(1)', (el) => el.innerText);
-
+		console.log('1');
+		await this.page.waitForSelector('.css-wbbzg8-leftContent--InvitationsDashboard');
+		console.log('2');
+		const numTotal = await this.page.$eval(
+			'.icon-card:nth-child(1) > .icon-card__content > ul > li > .icon-card__number',
+			(el) => el.innerText
+		);
+		console.log('3' + numTotal);
 		await page.screenshot({ path: './screenshots/screenshot-invitationsBeta.png' });
 		return numTotal;
 	}
