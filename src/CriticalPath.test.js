@@ -18,7 +18,7 @@ let browser;
 
 beforeAll(async () => {
 	browser = await puppeteer.launch({
-		headless: false,
+		headless: true,
 		ignoreHTTPSErrors: true,
 		args: [
 			// '--start-fullscreen',
@@ -270,7 +270,7 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 	);
 
 	//Button is disappeared
-	/*	test(
+	/*test(
 		'login to the QQ Catalyst API ',
 		async () => {
 			const Connectors = new ConnectorsPageObject(page);
