@@ -12,7 +12,7 @@ module.exports = class InvitationsBetaPageObject extends PageObject {
 		this.page.waitForNavigation();
 	}
 
-	async totalContactsNumber() {
+	async totalInvitationsBetaNumber() {
 		const res = await axios.get('https://api-staging.agentero.com/v1/users/contacts?count=true', {
 			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
 		});
@@ -21,15 +21,16 @@ module.exports = class InvitationsBetaPageObject extends PageObject {
 		return ContactsTotal;
 	}
 
-	async totalInvitationsCheck() {
-		console.log('1');
-		await this.page.waitForSelector('.css-wbbzg8-leftContent--InvitationsDashboard');
-		console.log('2');
+	async totalInvitationsBetaCheck() {
+		await this.page.waitForSelector(
+			'#root > div > main > div.jss74 > div:nth-child(2) > div > div.css-iyv6ql-dashboardContainer--InvitationsDashboard > div.css-wbbzg8-leftContent--InvitationsDashboard > div.invitations__funnel.m-b-30 > div:nth-child(1) > div'
+		);
+
 		const numTotal = await this.page.$eval(
-			'.icon-card:nth-child(1) > .icon-card__content > ul > li > .icon-card__number',
+			'#root > div > main > div.jss74 > div:nth-child(2) > div > div.css-iyv6ql-dashboardContainer--InvitationsDashboard > div.css-wbbzg8-leftContent--InvitationsDashboard > div.invitations__funnel.m-b-30 > div:nth-child(1) > div',
 			(el) => el.innerText
 		);
-		console.log('3' + numTotal);
+
 		await page.screenshot({ path: './screenshots/screenshot-invitationsBeta.png' });
 		return numTotal;
 	}
