@@ -11,24 +11,19 @@ module.exports = class ProspectsPageObject extends PageObject {
 		await this.page.click('a[href*="prospects"]');
 	}
 
-	async totalProspectsNumber() {
+	async getTotalProspectsNumber() {
 		const res = await axios.get('https://api-staging.agentero.com/api/frontend/v1/prospects', {
 			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
 		});
 
-		const prospectList = res.data.meta.totalCount;
-		return prospectList;
+		return res.data.meta.totalCount;
 	}
 
-	async totalProspectsCheck() {
+	async getTtalProspectsInTable() {
 		await this.page.waitForSelector('.row-table');
 
-		const numProspects = await this.page.$eval('.col-md-12 .title', (el) =>
+		return await this.page.$eval('.col-md-12 .title', (el) =>
 			el.innerText.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
 		);
-
-		await this.page.screenshot({ path: './screenshots/screenshot-prospects.png' });
-
-		return numProspects;
 	}
 };

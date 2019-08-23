@@ -7,48 +7,46 @@ module.exports = class DashboardPageObject extends PageObject {
 		this.page = page;
 	}
 
-	async takeSubNames() {
+	async getAgentName() {
+		await this.page.waitForSelector('.main-navbar__user__name');
+
+		return await this.page.$eval('.main-navbar__user__name', (el) => el.innerText);
+	}
+
+	async getSubTabsNames() {
 		await this.page.click('.main-navbar__brand');
 		await this.page.waitFor(2000);
 
-		const tabsNames = await this.page.$eval('.sidebar--left', (el) => el.innerText);
-
-		return tabsNames;
+		return await this.page.$eval('.sidebar--left', (el) => el.innerText);
 	}
 
-	async inviteContacts() {
+	async getInviteContactsNumber() {
 		const res = await axios.get('https://api-staging.agentero.com/api/frontend/v1/dashboard/todos', {
 			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
 		});
 
-		const InviteContactsTotal = res.data.meta.usersPendingInvitationCount;
-		return InviteContactsTotal;
+		return res.data.meta.usersPendingInvitationCount;
 	}
 
-	async inviteContactsTile() {
+	async getInviteContactsNumberInTile() {
 		await this.page.waitForSelector('.card ');
 
-		const numTotal = await this.page.$eval('.card__content__mainText', (el) => el.innerText);
-
-		await this.page.screenshot({ path: './screenshots/screenshot-Dashboard.png' });
-		return numTotal;
+		return await this.page.$eval('.card__content__mainText', (el) => el.innerText);
 	}
-
+	/*
 	async newOpportunities() {
 		const res = await axios.get('https://api-staging.agentero.com/api/frontend/v1/dashboard/todos', {
 			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
 		});
 
-		const newOpportunitiesCount = res.data.meta.newOpportunitiesCount;
-		return newOpportunitiesCount;
+		return res.data.meta.newOpportunitiesCount;
 	}
 
 	async newOpportunitiesTile() {
 		await this.page.waitForSelector('.dXuUeq');
-		const numNewOpportunities = await this.page.$eval(
+		return await this.page.$eval(
 			'#page-wrapper > div > div:nth-child(2) > div > div > div > div.m-b-10 > div > div > div > div.dXuUeq > div > div.card__content > div > p.card__content__mainText',
 			(el) => el.innerText
 		);
-		return numNewOpportunities;
-	}
+	}*/
 };

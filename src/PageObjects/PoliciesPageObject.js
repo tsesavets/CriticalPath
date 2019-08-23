@@ -11,23 +11,21 @@ module.exports = class PoliciesPageObject extends PageObject {
 		await this.page.click('a[href*="insurances"]');
 	}
 
-	async totalPoliciesNumber() {
+	async getTotalPoliciesNumber() {
 		const res = await axios.get('https://api-staging.agentero.com/api/frontend/v1/insurances', {
 			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
 		});
 
-		const policiesList = res.data.meta.totalCount;
-		return policiesList;
+		return res.data.meta.totalCount;
 	}
 
-	async totalPoliciesCheck() {
+	async getTotalPoliciesNumberInTable() {
 		await this.page.waitForSelector('.row-table');
 
-		const numPolicies = (await this.page.$eval('.col-md-12 .title', (el) => el.innerText)).replace(/[,]/g, '');
+		return await this.page.$eval('.col-md-12 .title', (el) => el.innerText).replace(/[,]/g, '');
 
 		await this.page.screenshot({
 			path: './screenshots/screenshot-policies.png'
 		});
-		return numPolicies;
 	}
 };

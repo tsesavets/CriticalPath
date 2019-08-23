@@ -11,23 +11,21 @@ module.exports = class InvitationsPageObject extends PageObject {
 		await this.page.click('a[href*="invitations/new"]');
 	}
 
-	async totalInvitationsNumber() {
+	async getTotalInvitationsNumber() {
 		const res = await axios.get('https://api-staging.agentero.com/v1/users/contacts?count=true', {
 			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
 		});
 
-		const invitationsTotal = res.data.meta.count;
-		return invitationsTotal;
+		return res.data.meta.count;
 	}
 
-	async totalInvitationsCheck() {
+	async getTotalInvitationsInTile() {
 		await this.page.waitForSelector('.invitations__funnel.m-b-30');
 
-		const numTotal = await this.page.$eval('.icon-card__content', (el) => el.innerText);
+		return await this.page.$eval('.icon-card__content', (el) => el.innerText);
 
 		await this.page.screenshot({
 			path: './screenshots/screenshot-invitations.png'
 		});
-		return numTotal;
 	}
 };

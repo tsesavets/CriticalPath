@@ -61,9 +61,11 @@ describe('Agentero Sign In', () => {
 		'accepting correct creds should Login',
 		async () => {
 			const Sign = new SignInPageObject(page);
-			await Sign.EnterEmail('dzianis.tsesavets+42@agentero.com');
-			await Sign.EnterPassword('password');
-			agentName = await Sign.Login();
+			await Sign.enterEmail('dzianis.tsesavets+42@agentero.com');
+			await Sign.enterPassword('password');
+			await Sign.login();
+			const Dashboard = new DashboardPageObject(page);
+			agentName = Dashboard.getAgentName();
 			expect(agentName).toBe('Agent from Agency 3');
 		},
 		15000
@@ -73,7 +75,7 @@ describe('Agentero Sign In', () => {
 describe('Check the naming of each tab', () => {
 	test('Check the naming of sub-tabs ', async () => {
 		const Dashboard = new DashboardPageObject(page);
-		tabsNames = await Dashboard.takeSubNames();
+		tabsNames = await Dashboard.getSubTabsNames();
 		expect(tabsNames.replace(/\r|\n/g, '')).toBe(
 			' Dashboard Clients Prospects Opportunities Quotes Policies Invitations Invitations Beta Communications Notifications Connectors'
 		);
@@ -85,30 +87,20 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		'Navigating to the Dashboard page and check invite contacts number',
 		async () => {
 			const Dashboard = new DashboardPageObject(page);
-			const InviteContactsNumber = await Dashboard.inviteContacts();
-			const InviteContacts = await Dashboard.inviteContactsTile();
-			expect(`${InviteContactsNumber} contacts`).toBe(InviteContacts);
+			const inviteContactsNumber = await Dashboard.getInviteContactsNumber();
+			const inviteContactsTile = await Dashboard.getInviteContactsNumberInTile();
+			expect(`${inviteContactsNumber} contacts`).toBe(inviteContactsTile);
 		},
 		25000
 	);
-	/*test(
-		'Number of new opportunities on Dashboard page',
-		async () => {
-			const Dashboard = new DashboardPageObject(page);
-			const newOpportunitiesCount = await Dashboard.newOpportunities();
-			const numNewOpportunities = await Dashboard.newOpportunitiesTile();
-			expect(`${newOpportunitiesCount} opportunities`).toBe(numNewOpportunities);
-		},
-		25000
-	);*/
 
 	test(
 		'Navigating to the Clients page and seen the clients list ',
 		async () => {
 			const Clients = new ClientsPageObject(page);
 			await Clients.clickTab();
-			const contactList = await Clients.totalClientsNumber();
-			const numClients = await Clients.totalClientsCheck();
+			const contactList = await Clients.getTotalClientsNumber();
+			const numClients = await Clients.getTotalClientsInTable();
 			expect(`CLIENTS ${contactList}`).toBe(numClients);
 		},
 		25000
@@ -119,8 +111,8 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		async () => {
 			const Prospects = new ProspectsPageObject(page);
 			await Prospects.clickTab();
-			const prospectList = await Prospects.totalProspectsNumber();
-			const numProspects = await Prospects.totalProspectsCheck();
+			const prospectList = await Prospects.getTotalProspectsNumber();
+			const numProspects = await Prospects.getTtalProspectsInTable();
 			expect(`PROSPECTS ${prospectList} `).toBe(numProspects);
 		},
 		15000
@@ -131,8 +123,8 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		async () => {
 			const Opportunities = new OpportunitiesPageObject(page);
 			await Opportunities.clickTab();
-			const opportunitiesList = await Opportunities.totalOpportunitiesNumber();
-			const numOpportunities = await Opportunities.totalProspectsCheck();
+			const opportunitiesList = await Opportunities.getOpportunitiesNumber();
+			const numOpportunities = await Opportunities.getOpportunitiesNumberInTile();
 			expect(`OPPORTUNITIES (${opportunitiesList})`).toBe(numOpportunities);
 		},
 		5000
@@ -143,8 +135,8 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		async () => {
 			const Quotes = new QuotesPageObject(page);
 			await Quotes.clickTab();
-			const quotesList = await Quotes.totalQuotesNumber();
-			const numQuotes = await Quotes.totalQuotesCheck();
+			const quotesList = await Quotes.getTotalQuotesNumber();
+			const numQuotes = await Quotes.getTotalQuotesInTable();
 			expect(`QUOTES (${quotesList})`).toBe(numQuotes);
 		},
 		15000
@@ -155,8 +147,8 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		async () => {
 			const Policies = new PoliciesPageObject(page);
 			await Policies.clickTab();
-			const policiesList = await Policies.totalPoliciesNumber();
-			const numPolicies = await Policies.totalPoliciesCheck();
+			const policiesList = await Policies.getTotalPoliciesNumber();
+			const numPolicies = await Policies.getTotalPoliciesNumberInTable();
 			expect(`POLICIES (${policiesList})`).toBe(numPolicies);
 		},
 		30000
@@ -167,9 +159,9 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		async () => {
 			const Invitatios = new InvitationsPageObject(page);
 			await Invitatios.clickTab();
-			const invitationsList = await Invitatios.totalInvitationsNumber();
-			await page.waitFor(2000);
-			const numTotal = await Invitatios.totalInvitationsCheck();
+			const invitationsList = await Invitatios.getTotalInvitationsNumber();
+			await page.waitFor(2000); // ожадние загрузки данных в tile
+			const numTotal = await Invitatios.getTotalInvitationsInTile();
 			expect(invitationsList + 'Total').toBe(numTotal.replace(/\r|\n/g, ''));
 		},
 		7000
@@ -180,8 +172,8 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 		async () => {
 			const InvitatiosBeta = new InvitationsBetaPageObject(page);
 			await InvitatiosBeta.clickTab();
-			const invitationsBetaList = await InvitatiosBeta.totalInvitationsBetaNumber();
-			//const numTotal = await InvitatiosBeta.totalInvitationsBetaCheck();
+			const invitationsBetaList = await InvitatiosBeta.getTotalInvitationsBetaNumber();
+			//const numTotal = await InvitatiosBeta.getTotalInvitationsBetaNumberInTile();
 			expect(invitationsBetaList + 'Total').toBe('751Total');
 		},
 		7000
@@ -198,10 +190,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.AMS360EnterAgencyInc();
 			await Connectors.AMS360EnterUsernameInc();
 			await Connectors.AMS360EnterPasswordInc();
-			await Connectors.ConnectorModalConnect();
-			const feiledText = await Connectors.FailedLogin();
-			await Connectors.MakeScreenshot('AMS360');
-			await Connectors.CloseModal();
+			await Connectors.connectorModalConnect();
+			const feiledText = await Connectors.failedLogin();
+			await Connectors.makeScreenshot('AMS360');
+			await Connectors.closeModal();
 			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				'Oh snap!Sorry, it looks like the credentials you provided are not valid...Try Again'
 			);
@@ -218,10 +210,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.UpdateCredentials();
 			await Connectors.AMS360SSOEnterUsernameInc();
 			await Connectors.AMS360SSOEnterPasswordInc();
-			await Connectors.ConnectorModalConnect();
-			const feiledText = await Connectors.FailedLogin();
-			await Connectors.MakeScreenshot('AMS360SSO');
-			await Connectors.CloseModal();
+			await Connectors.connectorModalConnect();
+			const feiledText = await Connectors.failedLogin();
+			await Connectors.makeScreenshot('AMS360SSO');
+			await Connectors.closeModal();
 			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				'Oh snap!Sorry, it looks like the credentials you provided are not valid...Try Again'
 			);
@@ -238,10 +230,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.UpdateCredentials();
 			await Connectors.EzlynxEnterUsernameInc();
 			await Connectors.EzlynxEnterPasswordInc();
-			await Connectors.ConnectorModalConnect();
-			const feiledText = await Connectors.FailedLogin();
-			await Connectors.MakeScreenshot('Ezlynx');
-			await Connectors.CloseModal();
+			await Connectors.connectorModalConnect();
+			const feiledText = await Connectors.failedLogin();
+			await Connectors.makeScreenshot('Ezlynx');
+			await Connectors.closeModal();
 			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				"Oh snap!Sorry, it looks like the credentials you provided are not valid or you have Two-Step Verification enabled and we can't connect the data.If you have Two-Step Verification enabled it's an easy fix, please log in to your EZLynx account, disable the Two-Step Verification and click Retry on this page.Try Again"
 			);
@@ -258,10 +250,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.UpdateCredentials();
 			await Connectors.EzlynxMSEnterUsernameInc();
 			await Connectors.EzlynxMSEnterPasswordInc();
-			await Connectors.ConnectorModalConnect();
-			const feiledText = await Connectors.FailedLogin();
-			await Connectors.MakeScreenshot('EzlynxMS');
-			await Connectors.CloseModal();
+			await Connectors.connectorModalConnect();
+			const feiledText = await Connectors.failedLogin();
+			await Connectors.makeScreenshot('EzlynxMS');
+			await Connectors.closeModal();
 			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				'Oh snap!Sorry, it looks like the credentials you provided are not valid...Try Again'
 			);
@@ -278,10 +270,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.UpdateCredentials();
 			await Connectors.QQCatalystEnterUsernameInc();
 			await Connectors.QQCatalystEnterPasswordInc();
-			await Connectors.ConnectorModalConnect();
-			const feiledText = await Connectors.FailedLogin();
-			await Connectors.MakeScreenshot('QQ-Calalist');
-			await Connectors.CloseModal();
+			await Connectors.connectorModalConnect();
+			const feiledText = await Connectors.failedLogin();
+			await Connectors.makeScreenshot('QQ-Calalist');
+			await Connectors.closeModal();
 			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				'Oh snap!Sorry, it looks like the credentials you provided are not valid...Try Again'
 			);
@@ -299,10 +291,10 @@ describe('Agentero Navigation throw all sub-tabs', () => {
 			await Connectors.RefreshToken();
 			await Connectors.QQCatalystAPIEnterUsernameInc();
 			await Connectors.QQCatalystAPIEnterPasswordInc();
-			await Connectors.ConnectorModalConnect();
-			const feiledText = await Connectors.FailedLogin();
-			await Connectors.MakeScreenshot('QQ-Calalist-API');
-			await Connectors.CloseModal();
+			await Connectors.connectorModalConnect();
+			const feiledText = await Connectors.failedLogin();
+			await Connectors.makeScreenshot('QQ-Calalist-API');
+			await Connectors.closeModal();
 			expect(feiledText.replace(/\r|\n/g, '')).toBe(
 				'Oh snap!Sorry, it looks like the credentials you provided are not valid...Try Again'
 			);

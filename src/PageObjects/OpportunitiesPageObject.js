@@ -11,7 +11,7 @@ module.exports = class OpportunitiesPageObject extends PageObject {
 		await this.page.click('a[href*="opportunities"]');
 	}
 
-	totalOpportunitiesNumber() {
+	getOpportunitiesNumber() {
 		const res = axios.get(
 			'https://autopush.agentero.dev/opportunities.OpportunityFrontendService/GetOpportunityDetails',
 			{
@@ -19,19 +19,12 @@ module.exports = class OpportunitiesPageObject extends PageObject {
 			}
 		);
 
-		const opportunitiesList = res.data.meta.totalCount;
-		return opportunitiesList;
+		return res.data.meta.totalCount;
 	}
 
-	async totalProspectsCheck() {
+	async getOpportunitiesNumberInTile() {
 		await this.page.waitForSelector('.row-table');
 
-		const numOpportunities = await this.page.$eval('.col-md-12 .title', (el) => el.innerText);
-
-		await this.page.screenshot({
-			path: './screenshots/screenshot-opportunities.png'
-		});
-
-		return numOpportunities;
+		return await this.page.$eval('.col-md-12 .title', (el) => el.innerText);
 	}
 };

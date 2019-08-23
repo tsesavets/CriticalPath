@@ -6,25 +6,17 @@ module.exports = class SignInPageObject extends PageObject {
 		this.page = page;
 	}
 
-	async EnterEmail(login) {
+	async enterEmail(login) {
 		await this.page.waitForSelector('input[type="email"]');
 
 		await this.page.type('input[type="email"]', login);
 	}
 
-	async EnterPassword(password) {
+	async enterPassword(password) {
 		await this.page.type('input[type="password"]', password);
 	}
 
-	async Login() {
+	async login() {
 		await this.page.click('input[type="submit"]');
-
-		await this.page.waitForSelector('.main-navbar__user__name');
-
-		const agentName = await this.page.$eval('.main-navbar__user__name', (el) => el.innerText);
-
-		await this.page.screenshot({ path: './screenshots/SignIn.png' });
-
-		return agentName;
 	}
 };

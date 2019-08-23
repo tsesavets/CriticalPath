@@ -11,7 +11,7 @@ module.exports = class QuotesPageObject extends PageObject {
 		await this.page.click('a[href*="quotes"]');
 	}
 
-	async totalQuotesNumber() {
+	async getTotalQuotesNumber() {
 		const res = await axios.get('https://api-staging.agentero.com/api/frontend/v1/quotes', {
 			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
 		});
@@ -20,11 +20,10 @@ module.exports = class QuotesPageObject extends PageObject {
 		return quotesList;
 	}
 
-	async totalQuotesCheck() {
+	async getTotalQuotesInTable() {
 		await this.page.waitForSelector('.row-table');
 
-		const numQuotes = await this.page.$eval('.col-md-12 .title', (el) => el.innerText);
+		return await this.page.$eval('.col-md-12 .title', (el) => el.innerText);
 		await this.page.screenshot({ path: './screenshots/screenshot-quotes.png' });
-		return numQuotes;
 	}
 };
