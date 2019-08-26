@@ -11,14 +11,6 @@ module.exports = class ProspectsPageObject extends PageObject {
 		await this.page.click('a[href*="prospects"]');
 	}
 
-	async getTotalProspectsNumber() {
-		const res = await axios.get('https://api-staging.agentero.com/api/frontend/v1/prospects', {
-			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
-		});
-
-		return res.data.meta.totalCount;
-	}
-
 	async getTtalProspectsInTable() {
 		await this.page.waitForSelector('.row-table');
 

@@ -6,12 +6,12 @@ module.exports = class LogoutPageObject extends PageObject {
 		this.page = page;
 	}
 
-	async ClickAgentName() {
+	async clickAgentName() {
 		await this.page.waitForSelector('.main-navbar__user__name');
 		await this.page.click('.main-navbar__user__name');
 	}
 
-	async ClickLogout() {
+	async clickLogout() {
 		await this.page.waitForSelector('a[href^="/experts/sign_out"]');
 
 		await this.page.click('a[href^="/experts/sign_out"]');

@@ -20,14 +20,6 @@ module.exports = class DashboardPageObject extends PageObject {
 		return await this.page.$eval('.sidebar--left', (el) => el.innerText);
 	}
 
-	async getInviteContactsNumber() {
-		const res = await axios.get('https://api-staging.agentero.com/api/frontend/v1/dashboard/todos', {
-			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
-		});
-
-		return res.data.meta.usersPendingInvitationCount;
-	}
-
 	async getInviteContactsNumberInTile() {
 		await this.page.waitForSelector('.card ');
 

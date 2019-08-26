@@ -11,17 +11,6 @@ module.exports = class OpportunitiesPageObject extends PageObject {
 		await this.page.click('a[href*="opportunities"]');
 	}
 
-	getOpportunitiesNumber() {
-		const res = axios.get(
-			'https://autopush.agentero.dev/opportunities.OpportunityFrontendService/GetOpportunityDetails',
-			{
-				headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
-			}
-		);
-
-		return res.data.meta.totalCount;
-	}
-
 	async getOpportunitiesNumberInTile() {
 		await this.page.waitForSelector('.row-table');
 

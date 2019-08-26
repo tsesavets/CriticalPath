@@ -8,15 +8,7 @@ module.exports = class InvitationsPageObject extends PageObject {
 	}
 
 	async clickTab() {
-		await this.page.click('a[href*="invitations/new"]');
-	}
-
-	async getTotalInvitationsNumber() {
-		const res = await axios.get('https://api-staging.agentero.com/v1/users/contacts?count=true', {
-			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
-		});
-
-		return res.data.meta.count;
+		await this.page.click('a[href*="invitations/scheduled/new"]');
 	}
 
 	async getTotalInvitationsInTile() {

@@ -1,5 +1,4 @@
 const PageObject = require('puppeteer-page-object');
-const axios = require('axios');
 
 module.exports = class ClientsPageObject extends PageObject {
 	constructor(page) {
@@ -8,15 +7,7 @@ module.exports = class ClientsPageObject extends PageObject {
 	}
 
 	async clickTab() {
-		await this.page.click('a[href*="users"]');
-	}
-
-	async getTotalClientsNumber() {
-		const res = await axios.get('https://api-staging.agentero.com/api/frontend/v1/clients', {
-			headers: { 'X-Expert-Token': 'KCJm522RoEbKkw_q5uVW' }
-		});
-
-		return res.data.meta.totalCount;
+		await this.page.click('a[href*="/users"]');
 	}
 
 	async getTotalClientsInTable() {
